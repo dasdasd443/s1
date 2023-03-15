@@ -1,0 +1,22 @@
+#home-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:25px;
+}
+
+#home-menu-nav {
+    display: flex;
+    gap:1rem;
+    justify-content: flex-end;
+    align-items: center;
+    
+}
+
+#home-menu-nav li{
+    list-style-type: none;
+}
+
+#header-intro {
+    padding: 25px;
+}

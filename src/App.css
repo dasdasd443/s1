@@ -1,18 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overflow: none;
+  font-family: 'Roboto', sans-serif;
+}
+
+#home-header {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 0;
+  color:white;
+  top: 0;
 }
 
 #home-body{
-  height: 100vh;
+  height: 200vh;
   width: 100vw;
+  z-index: 50;
   background-color: black;
+  overflow: hidden;
+}
+
+#home-content {
+  height: 100vh;
 }
 
 #cursor {
   height: 250px;
   width: 250px;
-  border: 1px solid white;
+  /* border: 1px solid white; */
   position: absolute;
+}
+
+hr {
+  overflow: hidden;
+  animation: fadeIn 2s; 
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
 }

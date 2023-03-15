@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import './Home.css';
+import Header from './Header';
+
 function Home() {
 
     const area = 125;
@@ -19,13 +20,14 @@ function Home() {
 
     const genLine = (x1,x2, y1,y2) => {
         const line = document.createElement('hr');
-        line.style.border = '1px solid white';
+        line.style.border = '1px solid rgba(255,255,255,0.1)';
         line.style.position = 'absolute';
         line.style.width = '1px';
+        line.style.overflow = 'none';
 
         const x = randNum(x1, x2);
         const y = randNum(y1, y2);
-        const h = randNum(300, 500);
+        const h = randNum(100, 300);
         line.style.left = `${x}px`;
         line.style.top = `${y}px`;
 
@@ -33,59 +35,68 @@ function Home() {
         
         return line;
     }
-    const alertFn = (e) => {
+
+    const [mousePos, setMousePos] = useState({x: 0, y: 0});
+
+
+    const getMousePos = (e) => {
+        setMousePos({x: e.clientX, y: e.clientY});
+
         const ms = document.querySelector('#cursor');
-        
-        const x = e.clientX;
-        const y = e.clientY;
+        const hb = document.querySelector('#home-body');
+        const rect = hb.getBoundingClientRect();
 
-        const cY = window.innerHeight / 2;
-        const cX = window.innerWidth / 2;
+        const offset = {
+            top: rect.top + window.scrollY,
+            left: rect.left + window.scrollX
+        }
+        const x = e.pageX - offset.left ;
+        const y = e.pageY - offset.top;
 
-        ms.style.left = (x - area) + "px";
-        ms.style.top = (y - area) + "px";
+        ms.style.left = (mousePos.x - rect.left) + "px";
+        ms.style.top = (mousePos.y - rect.top) + "px";
+    }
+
+    const alertFn = () => {
 
         const patterns = [
-            {y1: y - area, y2: y + area},
-            {y1: y, y2: y}
-        ]
-
-        const lineEl = [
-            genLine(parseInt(x - area), parseInt(x + area), parseInt(patterns[pattern].y1), parseInt(patterns[pattern].y2)),
-            // genLine(parseInt(x - area), parseInt(x + area), parseInt(patterns[pattern].y1), parseInt(patterns[pattern].y2)),
-            // genLine(parseInt(x - area), parseInt(x + area), parseInt(patterns[pattern].y1), parseInt(patterns[pattern].y2)),
-            // genLine(parseInt(x - area), parseInt(x + area), parseInt(y - area), parseInt(y + area)),
-            // genLine(parseInt(x - area), parseInt(x + area), parseInt(y - area), parseInt(y + area)),
+            {y1: mousePos.y - area, y2: mousePos.y + area},
+            {y1: mousePos.y, y2: mousePos.y}
         ]
 
         setTimeout(() => {
             setPattern(randNum(0 , 1));
-        }, 5000);
+        }, 1000);
+
+        const lineEl = [
+            genLine(parseInt(mousePos.x - area), parseInt(mousePos.x + area), parseInt(patterns[pattern].y1), parseInt(patterns[pattern].y2)),
+        ]
+
+        lineEl.forEach((el) => {
+            const theta = calcAng(mousePos.x , parseInt(el.style.left), mousePos.y, parseInt(el.style.top));
+            el.style.webkitTransform = `rotate(${theta}deg) translate(0, -100px)`;
+            document.querySelector('body').appendChild(el);
+        });
 
         setTimeout(() => {
-            lineEl.forEach((el) => {
-                const theta = calcAng(x , parseInt(el.style.left), y, parseInt(el.style.top));
-                el.style.webkitTransform = `rotate(${theta}deg) translate(0, -100px)`;
-                document.querySelector('#home-body').appendChild(el);
-            });
-        }, 50);
+            // document.querySelector('#home-body').querySelectorAll("hr")[0].remove();
+        }, 2000);
         
         
     }
 
-    useEffect(() => {
-        setInterval(() => {
-            if(document.querySelector('#home-body').querySelectorAll("hr").length > 10) {
-                document.querySelector('#home-body').querySelectorAll("hr")[0].remove();
-                document.querySelector('#home-body').querySelectorAll("hr")[1].remove();
-            }
-        }, 5);
-    },[]);
-
     return (
-        <div id='home-body' onMouseMove={alertFn}>
+        <>
+        <div id='home-body' onMouseMove={e => {
+            getMousePos(e);
+            alertFn();
+            console.log({...mousePos})
+        }}>
             <div id='cursor'></div>
+            <Header />
+            <div id='home-content'></div>
         </div>
+        </>
     );
 }
 
