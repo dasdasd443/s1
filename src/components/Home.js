@@ -24,6 +24,8 @@ function Home() {
         line.style.position = 'absolute';
         line.style.width = '1px';
         line.style.overflow = 'none';
+        line.style.zIndex = '100';
+        line.className = 'rand-line';
 
         const x = randNum(x1, x2);
         const y = randNum(y1, y2);
@@ -84,17 +86,18 @@ function Home() {
         
         
     }
+    
 
     return (
         <>
         <div id='home-body' onMouseMove={e => {
             getMousePos(e);
             alertFn();
-            console.log({...mousePos})
         }}>
             <div id='cursor'></div>
             <Header />
             <div id='home-content'></div>
+            <div id='home-about'></div>
         </div>
         </>
     );

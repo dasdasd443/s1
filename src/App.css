@@ -1,32 +1,42 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap');
 
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow: none;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 100;
+  overflow-x: hidden;
 }
 
 #home-header {
   height: 100%;
   width: 100%;
   position: absolute;
-  z-index: 0;
+  z-index: 50;
   color:white;
   top: 0;
 }
 
 #home-body{
   height: 200vh;
-  width: 100vw;
+  width: 100%;
   z-index: 50;
-  background-color: black;
-  overflow: hidden;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.9);
+  overflow: none;
 }
 
 #home-content {
   height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+#home-about {
+  height: 100vh;
+  position: relative;
+  background-color: rgba(255,255,255,0.1);
 }
 
 #cursor {
@@ -36,12 +46,33 @@ body {
   position: absolute;
 }
 
-hr {
+#title {
+  font-size: 7em;
+}
+
+.rand-line {
   overflow: hidden;
   animation: fadeIn 2s; 
   opacity: 0;
 }
 
+#title-text {
+  font-size: 2em;
+}
+#title-text-bar {
+  font-size: 2em;
+  opacity: 1;
+}
+
+.type-eff {
+  animation: typeEff 1s infinite; 
+}
+
+@keyframes typeEff {
+  0% { opacity: 1;  }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
 @keyframes fadeIn {
   0% { opacity: 0; }
   50% { opacity: 1; }
