@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
+import { OrbitControls, Html } from '@react-three/drei'
 
 function Box(props) {
   // This reference will give us direct access to the mesh
@@ -8,16 +9,12 @@ function Box(props) {
   const [hovered, setHover] = useState(false)
   const [active, setActive] = useState(false)
   // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) => (mesh.current.rotation.x += delta))
+  useFrame((state, delta) => (mesh.current.rotation.x += (delta / 20)))
   // Return view, these are regular three.js elements expressed in JSX
   return (
     <mesh
       {...props}
       ref={mesh}
-      scale={active ? 1.5 : 1}
-    //   onClick={(event) => setActive(!active)}
-    //   onPointerOver={(event) => setHover(true)}
-    //   onPointerOut={(event) => setHover(false)}
       >
       <sphereBufferGeometry args={[3, 32, 16]} />
     
@@ -29,9 +26,11 @@ function Box(props) {
 function Ball() {
     return (
         <Canvas>
-            <ambientLight />
-            <pointLight position={[10, 10, 10]} />
-            <Box position={[0, 0, 0]} />
+            <group position={[0,0,0]}>
+              <ambientLight />
+              <pointLight position={[10, 10, 10]} />
+              <Box/>
+            </group>
         </Canvas>
     )
 }

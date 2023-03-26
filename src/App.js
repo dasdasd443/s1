@@ -1,11 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
 import Home from './components/Home';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
 
-  const textArr = ['Software Engineer', 'UI/UX Design', 'Team Lead', 'Full Stack Developer', 'Web Developer'];
+  const textArr = ['Software Engineer', 'Team Lead', 'Full Stack Developer', 'Web Developer'];
   let textIdx = 0;
   const typeEff = (text) => {
       const textEff = text.split('');
@@ -56,7 +56,7 @@ function App() {
         if(titleTxt.length === 0 && !intvFLg) {
           intvFLg = true;
           textIdx+= 1;
-          if(textIdx === 5) textIdx = 0
+          if(textIdx === 4) textIdx = 0
         }
       }, 2000);
 
@@ -66,8 +66,17 @@ function App() {
     return () => clearInterval(intvId);
   },[typeEff, intvFLg]);
 
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+      const onScroll = () => setOffset(window.pageYOffset);
+      // clean up code
+      window.removeEventListener('scroll', onScroll);
+      window.addEventListener('scroll', onScroll, { passive: true });
+      return () => window.removeEventListener('scroll', onScroll);
+  }, []);
   return (
-    <Home/>
+    <Home offset={offset}/>
   );
 }
 

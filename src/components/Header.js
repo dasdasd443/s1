@@ -1,11 +1,11 @@
 import Introduction from "./Introduction";
 import Menu from "./Menu";
 
-function Header() {
+function Header({offset}) {
     return (
         <>
         <div id='home-header'>
-            <Menu />
+            <Menu offset={offset} />
             <Introduction />
         </div>
         </>

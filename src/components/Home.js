@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import Header from './Header';
+import Projects from './Projects';
 
-function Home() {
+function Home({offset}) {
 
     const area = 125;
     const [pattern, setPattern] = useState(1);
@@ -10,7 +11,6 @@ function Home() {
         const dy = y2 - y1;
 
         const theta = Math.atan2(dy,dx);
-        console.log(`${dx} ${dy}`);
         return theta * 180/Math.PI;
     }
 
@@ -91,13 +91,15 @@ function Home() {
     return (
         <>
         <div id='home-body' onMouseMove={e => {
-            getMousePos(e);
-            alertFn();
+            if(offset < 735) {
+                getMousePos(e);
+                alertFn();
+            }
         }}>
             <div id='cursor'></div>
-            <Header />
+            <Header offset={offset} />
             <div id='home-content'></div>
-            <div id='home-about'></div>
+            <Projects />
         </div>
         </>
     );
