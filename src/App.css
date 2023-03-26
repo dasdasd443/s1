@@ -1,11 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap');
 
+:root {
+  --topEl: 999;
+  --largeFnt: 7em;
+  --mediumFnt: 4em;
+  --smallFnt: 1.5em;
+  --menuEl: 99999;
+}
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Josefin Sans', sans-serif;
   font-weight: 100;
+  color:white;
   overflow-x: hidden;
 }
 
@@ -33,10 +42,23 @@ body {
   z-index: 1;
 }
 
-#home-about {
+#home-projects {
   height: 100vh;
   position: relative;
+  z-index: 50;
+  opacity: 0;
   background-color: rgba(255,255,255,0.1);
+  padding: 1em 10em 0 10em;
+  display: flex;
+  justify-content: space-between;
+}
+
+#home-projects-intro-text h1 {
+  font-size: var(--largeFnt);
+}
+
+#home-projects-intro-text p {
+  font-size: var(--smallFnt);
 }
 
 #cursor {
@@ -52,7 +74,7 @@ body {
 
 .rand-line {
   overflow: hidden;
-  animation: fadeIn 2s; 
+  animation: fadeInOut 2s; 
   opacity: 0;
 }
 
@@ -68,13 +90,30 @@ body {
   animation: typeEff 1s infinite; 
 }
 
+.img-card {
+  max-width: 100%;
+  height:150px;
+  padding:5px;
+  border: 1px solid white;
+}
+
 @keyframes typeEff {
   0% { opacity: 1;  }
   50% { opacity: 0; }
   100% { opacity: 1; }
 }
-@keyframes fadeIn {
+@keyframes fadeInOut {
   0% { opacity: 0; }
   50% { opacity: 1; }
   100% { opacity: 0; }
 }
+
+@keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@keyframes fadeOut {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+ }

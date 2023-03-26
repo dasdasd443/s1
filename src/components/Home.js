@@ -91,7 +91,7 @@ function Home({offset}) {
     return (
         <>
         <div id='home-body' onMouseMove={e => {
-            if(offset < 735) {
+            if(offset < 350) {
                 getMousePos(e);
                 alertFn();
             }
@@ -99,7 +99,7 @@ function Home({offset}) {
             <div id='cursor'></div>
             <Header offset={offset} />
             <div id='home-content'></div>
-            <Projects />
+            <Projects offset={offset} />
         </div>
         </>
     );

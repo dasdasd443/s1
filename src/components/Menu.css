@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     width: calc(100% - 40px);
-    z-index: 200;
+    z-index: var(--menuEl);
     background-color: transparent;
     position: fixed;
 }
